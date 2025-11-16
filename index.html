@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+     <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -155,6 +155,23 @@
             opacity: 0.8;
         }
         
+        .pdf-alternative {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            color: #333;
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .pdf-alternative a {
+            color: #1a2a6c;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        
         @media (max-width: 768px) {
             .pdf-controls {
                 flex-direction: column;
@@ -200,10 +217,11 @@
                 <div class="overlay" id="overlay"></div>
                 
                 <!-- PDF display using object tag -->
-                <object id="pdf-frame" data="sample.pdf" type="application/pdf">
+                <object id="sample.pdf" data="sample.pdf" type="application/pdf">
                     <div class="pdf-alternative">
                         <p>Your browser doesn't support embedded PDFs.</p>
-                        <p><a href="sample.pdf">Download the PDF</a> instead.</p>
+                        <p>No PDF file is available for display in this demo.</p>
+                        <p>To test with your own PDF, replace the data attribute in the object tag.</p>
                     </div>
                 </object>
             </div>
@@ -227,6 +245,7 @@
             // Disable right-click context menu
             document.addEventListener('contextmenu', function(e) {
                 e.preventDefault();
+                alert('Right-click is disabled for security reasons.');
                 return false;
             });
             
@@ -245,32 +264,51 @@
             // Disable keyboard shortcuts for print, save, etc.
             document.addEventListener('keydown', function(e) {
                 // Disable Ctrl+P (Print)
-                if ((e.ctrlKey || e.metaKey) && e.keyCode === 80) {
+                if ((e.ctrlKey || e.metaKey) && e.key === 'p') {
                     e.preventDefault();
+                    alert('Printing is disabled for this document.');
                     return false;
                 }
                 
                 // Disable Ctrl+S (Save)
-                if ((e.ctrlKey || e.metaKey) && e.keyCode === 83) {
+                if ((e.ctrlKey || e.metaKey) && e.key === 's') {
                     e.preventDefault();
+                    alert('Saving is disabled for this document.');
                     return false;
                 }
                 
                 // Disable Ctrl+C (Copy)
-                if ((e.ctrlKey || e.metaKey) && e.keyCode === 67) {
+                if ((e.ctrlKey || e.metaKey) && e.key === 'c') {
                     e.preventDefault();
+                    alert('Copying is disabled for this document.');
                     return false;
                 }
                 
                 // Disable F12 (Developer Tools)
-                if (e.keyCode === 123) {
+                if (e.key === 'F12') {
                     e.preventDefault();
+                    alert('Developer tools are restricted for this page.');
                     return false;
                 }
                 
                 // Disable Ctrl+Shift+I (Developer Tools)
-                if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.keyCode === 73) {
+                if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key === 'I') {
                     e.preventDefault();
+                    alert('Developer tools are restricted for this page.');
+                    return false;
+                }
+                
+                // Disable Ctrl+Shift+J (Developer Tools)
+                if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key === 'J') {
+                    e.preventDefault();
+                    alert('Developer tools are restricted for this page.');
+                    return false;
+                }
+                
+                // Disable Ctrl+Shift+C (Developer Tools)
+                if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key === 'C') {
+                    e.preventDefault();
+                    alert('Developer tools are restricted for this page.');
                     return false;
                 }
             });
@@ -326,9 +364,9 @@
             // Show a warning if user tries to leave the page
             window.addEventListener('beforeunload', function(e) {
                 e.preventDefault();
-                e.returnValue = '';
+                e.returnValue = 'Are you sure you want to leave? Your document viewing session will end.';
             });
         });
     </script>
 </body>
-</html>
+</html>               
